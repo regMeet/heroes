@@ -1,13 +1,13 @@
-package com.hungryBear.heros;
+package com.hungryBear.heroes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HerosApplication {
+public class HeroesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HerosApplication.class, args);
+		SpringApplication.run(HeroesApplication.class, args);
 	}
 
 }
