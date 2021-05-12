@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      context: local
+      id: create-table-hero
+      author: Alan Albertengo
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: _hero
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: hero_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(250)
+            tableName: _hero
