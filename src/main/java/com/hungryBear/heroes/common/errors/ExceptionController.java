@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.hungryBear.heroes.common.VO.ErrorVO;
+import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicated;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroNotFoundException;
 
 @ControllerAdvice
@@ -18,6 +19,12 @@ public class ExceptionController {
   @ExceptionHandler(SuperHeroNotFoundException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   public @ResponseBody ErrorVO userNotFound(SuperHeroNotFoundException e) {
+    return new ErrorVO(e.getMessage());
+  }
+
+  @ExceptionHandler(SuperHeroDuplicated.class)
+  @ResponseStatus(value = HttpStatus.NOT_FOUND)
+  public @ResponseBody ErrorVO userDuplicated(SuperHeroDuplicated e) {
     return new ErrorVO(e.getMessage());
   }
 
