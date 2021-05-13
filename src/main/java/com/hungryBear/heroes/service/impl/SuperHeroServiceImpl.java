@@ -53,9 +53,13 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 
   @Override
   @Transactional
-  public SuperHero updateSuperHero(Long id, String newName) throws SuperHeroDuplicatedException, SuperHeroNotFoundException {
-    this.checkIfHeroNameExists(newName);
+  public SuperHero updateSuperHero(Long id, String newName)
+      throws SuperHeroDuplicatedException, SuperHeroNotFoundException {
     SuperHero superHero = this.getSuperHeroById(id);
+    if (superHero.getName().equals(newName)) {
+      return superHero;
+    }
+    this.checkIfHeroNameExists(newName);
     log.info("Updating existent superhero; id: {}, name {}", id, newName);
 
     superHero.setName(newName);

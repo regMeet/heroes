@@ -33,7 +33,7 @@ public class SuperHeroServiceTest {
 
   private static final String HERO_NAME = "Batman";
   private static final SuperHero superHero = new SuperHero(1L, HERO_NAME);
-  private static final SuperHero superHero2 = new SuperHero(1L, "Superman");
+  private static final SuperHero superHero2 = new SuperHero(2L, "Superman");
   private static final List<SuperHero> superHeroList = Arrays.asList(superHero, superHero2);
 
   @InjectMocks
@@ -101,46 +101,48 @@ public class SuperHeroServiceTest {
 
   @Test
   public void testUpdate() throws SuperHeroDuplicatedException, SuperHeroNotFoundException {
-    when(heroRepository.findByName(any())).thenReturn(Optional.empty());
     when(heroRepository.findById(any())).thenReturn(Optional.of(superHero));
+    when(heroRepository.findByName(any())).thenReturn(Optional.empty());
     when(heroRepository.save(any())).thenReturn(superHero);
-    superHeroService.updateSuperHero(1L, "Alan");
-    verify(heroRepository, times(1)).findByName(any());
+    superHeroService.updateSuperHero(superHero.getId(), superHero2.getName());
     verify(heroRepository, times(1)).findById(any());
+    verify(heroRepository, times(1)).findByName(any());
     verify(heroRepository, times(1)).save(any());
   }
 
   @Test
   public void testUpdateNotFoundError() {
-    when(heroRepository.findByName(any())).thenReturn(Optional.empty());
     when(heroRepository.findById(any())).thenReturn(Optional.empty());
 
     SuperHeroNotFoundException e = assertThrows(SuperHeroNotFoundException.class,
-        () -> superHeroService.updateSuperHero(1L, superHero2.getName()), "Expected updateSuperHero() to throw");
+        () -> superHeroService.updateSuperHero(superHero2.getId(), superHero2.getName()),
+        "Expected updateSuperHero() to throw");
 
     assertEquals(ErrorCode.SUPER_HERO_NOT_FOUND.getCode(), e.getMessage());
-    verify(heroRepository, times(1)).findByName(any());
     verify(heroRepository, times(1)).findById(any());
+    verify(heroRepository, times(0)).findByName(any());
     verify(heroRepository, times(0)).save(any());
   }
 
   @Test
   public void testUpdateDuplicatedError() {
+    when(heroRepository.findById(any())).thenReturn(Optional.of(superHero2));
     when(heroRepository.findByName(any())).thenReturn(Optional.of(superHero));
 
     SuperHeroDuplicatedException e = assertThrows(SuperHeroDuplicatedException.class,
-        () -> superHeroService.updateSuperHero(1L, superHero2.getName()), "Expected updateSuperHero() to throw");
+        () -> superHeroService.updateSuperHero(superHero2.getId(), superHero.getName()),
+        "Expected updateSuperHero() to throw");
 
     assertEquals(ErrorCode.SUPER_HERO_DUPLICATED.getCode(), e.getMessage());
+    verify(heroRepository, times(1)).findById(any());
     verify(heroRepository, times(1)).findByName(any());
-    verify(heroRepository, times(0)).findById(any());
     verify(heroRepository, times(0)).save(any());
   }
 
   @Test
   public void testDelete() throws SuperHeroNotFoundException {
     when(heroRepository.findById(any())).thenReturn(Optional.of(superHero));
-    superHeroService.deleteSuperHero(1L);
+    superHeroService.deleteSuperHero(superHero.getId());
     verify(heroRepository, times(1)).findById(any());
     verify(heroRepository, times(1)).delete(any());
   }
@@ -150,7 +152,7 @@ public class SuperHeroServiceTest {
     when(heroRepository.findById(any())).thenReturn(Optional.empty());
 
     SuperHeroNotFoundException e = assertThrows(SuperHeroNotFoundException.class,
-        () -> superHeroService.deleteSuperHero(1L), "Expected deleteSuperHero() to throw");
+        () -> superHeroService.deleteSuperHero(superHero.getId()), "Expected deleteSuperHero() to throw");
 
     assertEquals(ErrorCode.SUPER_HERO_NOT_FOUND.getCode(), e.getMessage());
     verify(heroRepository, times(1)).findById(any());
