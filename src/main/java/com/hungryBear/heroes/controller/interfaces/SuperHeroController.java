@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +39,9 @@ public interface SuperHeroController {
   @PutMapping("/{id}")
   public SuperHero updateHero(@PathVariable("id") Long id, @RequestBody @Valid SuperHeroRequest request)
       throws SuperHeroDuplicated, SuperHeroNotFoundException;
+  
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteHero(@PathVariable("id") Long id) throws SuperHeroNotFoundException;
+  
 
 }

@@ -3,6 +3,8 @@ package com.hungryBear.heroes.controller.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hungryBear.heroes.common.VO.request.SuperHeroRequest;
@@ -42,6 +44,12 @@ public class SuperHeroControllerImpl implements SuperHeroController {
   public SuperHero updateHero(Long id, SuperHeroRequest superhero)
       throws SuperHeroDuplicated, SuperHeroNotFoundException {
     return superHeroService.updateSuperHero(id, superhero.getName());
+  }
+
+  @Override
+  public ResponseEntity<Void> deleteHero(Long id) throws SuperHeroNotFoundException {
+    superHeroService.deleteSuperHero(id);
+    return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
 }

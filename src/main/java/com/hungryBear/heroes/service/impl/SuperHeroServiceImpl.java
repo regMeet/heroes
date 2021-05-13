@@ -46,18 +46,18 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 
   @Override
   public SuperHero saveSuperHero(String name) throws SuperHeroDuplicated {
-    log.info("Saving a new superhero using name {}", name);
     this.checkIfHeroNameExists(name);
+    log.info("Saving a new superhero using name {}", name);
     return heroRepository.save(new SuperHero(name));
   }
 
   @Override
   @Transactional
   public SuperHero updateSuperHero(Long id, String newName) throws SuperHeroDuplicated, SuperHeroNotFoundException {
-    log.info("Saving an existent superhero; id: {}, name {}", id, newName);
     this.checkIfHeroNameExists(newName);
-
     SuperHero superHero = this.getSuperHeroById(id);
+    log.info("Updating existent superhero; id: {}, name {}", id, newName);
+
     superHero.setName(newName);
     heroRepository.save(superHero);
     return superHero;
@@ -68,6 +68,13 @@ public class SuperHeroServiceImpl implements SuperHeroService {
       log.info("Duplicated superhero using name {}", name);
       throw new SuperHeroDuplicated();
     }
+  }
+
+  @Override
+  public void deleteSuperHero(Long id) throws SuperHeroNotFoundException {
+    SuperHero superHero = this.getSuperHeroById(id);
+    log.info("Deleting superhero id: {}", id);
+    heroRepository.delete(superHero);
   }
 
 }

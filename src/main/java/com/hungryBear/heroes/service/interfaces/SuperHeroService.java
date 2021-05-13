@@ -19,4 +19,6 @@ public interface SuperHeroService {
 
   public SuperHero updateSuperHero(Long id, String name) throws SuperHeroDuplicated, SuperHeroNotFoundException;
 
+  public void deleteSuperHero(Long id) throws SuperHeroNotFoundException;
+
 }
