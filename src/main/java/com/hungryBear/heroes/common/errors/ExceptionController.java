@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.hungryBear.heroes.common.VO.ErrorVO;
-import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicated;
+import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicatedException;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroNotFoundException;
 
 @ControllerAdvice
@@ -22,9 +22,9 @@ public class ExceptionController {
     return new ErrorVO(e.getMessage());
   }
 
-  @ExceptionHandler(SuperHeroDuplicated.class)
+  @ExceptionHandler(SuperHeroDuplicatedException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
-  public @ResponseBody ErrorVO userDuplicated(SuperHeroDuplicated e) {
+  public @ResponseBody ErrorVO userDuplicated(SuperHeroDuplicatedException e) {
     return new ErrorVO(e.getMessage());
   }
 
@@ -32,7 +32,7 @@ public class ExceptionController {
   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
   public @ResponseBody ErrorVO catchRestOfExceptions(Exception e) {
     log.error("An exception has occurred", e);
-    return new ErrorVO(ErrorCode.INTERNAL_ERROR.getMessageKey());
+    return new ErrorVO(ErrorCode.INTERNAL_ERROR.getCode());
   }
 
 }

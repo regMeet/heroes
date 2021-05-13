@@ -5,14 +5,14 @@ public enum ErrorCode {
   SUPER_HERO_DUPLICATED("superheroes.hero.duplicated"),
   INTERNAL_ERROR("superheroes.internal.error");
 
-  private final String messageKey;
+  private final String code;
 
-  ErrorCode(String messageKey) {
-    this.messageKey = messageKey;
+  ErrorCode(String code) {
+    this.code = code;
   }
 
-  public String getMessageKey() {
-    return messageKey;
+  public String getCode() {
+    return code;
   }
 
 }

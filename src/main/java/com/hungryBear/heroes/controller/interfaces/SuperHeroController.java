@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.hungryBear.heroes.common.VO.request.SuperHeroRequest;
-import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicated;
+import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicatedException;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroNotFoundException;
 import com.hungryBear.heroes.common.persistence.entities.SuperHero;
 
@@ -34,11 +34,11 @@ public interface SuperHeroController {
   public List<SuperHero> getSuperHeroByName(@PathVariable("name") String name) throws SuperHeroNotFoundException;
 
   @PostMapping()
-  public SuperHero saveSuperHero(@RequestBody @Valid SuperHeroRequest superhero) throws SuperHeroDuplicated;
+  public SuperHero saveSuperHero(@RequestBody @Valid SuperHeroRequest superhero) throws SuperHeroDuplicatedException;
 
   @PutMapping("/{id}")
   public SuperHero updateHero(@PathVariable("id") Long id, @RequestBody @Valid SuperHeroRequest request)
-      throws SuperHeroDuplicated, SuperHeroNotFoundException;
+      throws SuperHeroDuplicatedException, SuperHeroNotFoundException;
   
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteHero(@PathVariable("id") Long id) throws SuperHeroNotFoundException;

@@ -8,7 +8,7 @@ public class SuperHeroException extends Exception {
   private ErrorCode errorCode;
 
   public SuperHeroException(ErrorCode errorCode) {
-    super(errorCode.getMessageKey());
+    super(errorCode.getCode());
     this.errorCode = errorCode;
   }
 

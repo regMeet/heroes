@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicated;
+import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicatedException;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroNotFoundException;
 import com.hungryBear.heroes.common.persistence.entities.SuperHero;
 import com.hungryBear.heroes.repository.SuperHeroRepository;
@@ -45,7 +45,7 @@ public class SuperHeroServiceImpl implements SuperHeroService {
   }
 
   @Override
-  public SuperHero saveSuperHero(String name) throws SuperHeroDuplicated {
+  public SuperHero saveSuperHero(String name) throws SuperHeroDuplicatedException {
     this.checkIfHeroNameExists(name);
     log.info("Saving a new superhero using name {}", name);
     return heroRepository.save(new SuperHero(name));
@@ -53,7 +53,7 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 
   @Override
   @Transactional
-  public SuperHero updateSuperHero(Long id, String newName) throws SuperHeroDuplicated, SuperHeroNotFoundException {
+  public SuperHero updateSuperHero(Long id, String newName) throws SuperHeroDuplicatedException, SuperHeroNotFoundException {
     this.checkIfHeroNameExists(newName);
     SuperHero superHero = this.getSuperHeroById(id);
     log.info("Updating existent superhero; id: {}, name {}", id, newName);
@@ -63,10 +63,10 @@ public class SuperHeroServiceImpl implements SuperHeroService {
     return superHero;
   }
 
-  private void checkIfHeroNameExists(String name) throws SuperHeroDuplicated {
+  private void checkIfHeroNameExists(String name) throws SuperHeroDuplicatedException {
     if (heroRepository.findByName(name).isPresent()) {
       log.info("Duplicated superhero using name {}", name);
-      throw new SuperHeroDuplicated();
+      throw new SuperHeroDuplicatedException();
     }
   }
 

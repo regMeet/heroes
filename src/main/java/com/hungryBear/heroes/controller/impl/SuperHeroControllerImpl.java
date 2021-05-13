@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hungryBear.heroes.common.VO.request.SuperHeroRequest;
-import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicated;
+import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicatedException;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroNotFoundException;
 import com.hungryBear.heroes.common.persistence.entities.SuperHero;
 import com.hungryBear.heroes.controller.interfaces.SuperHeroController;
@@ -36,13 +36,13 @@ public class SuperHeroControllerImpl implements SuperHeroController {
   }
 
   @Override
-  public SuperHero saveSuperHero(SuperHeroRequest superhero) throws SuperHeroDuplicated {
+  public SuperHero saveSuperHero(SuperHeroRequest superhero) throws SuperHeroDuplicatedException {
     return superHeroService.saveSuperHero(superhero.getName());
   }
 
   @Override
   public SuperHero updateHero(Long id, SuperHeroRequest superhero)
-      throws SuperHeroDuplicated, SuperHeroNotFoundException {
+      throws SuperHeroDuplicatedException, SuperHeroNotFoundException {
     return superHeroService.updateSuperHero(id, superhero.getName());
   }
 
