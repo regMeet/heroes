@@ -2,12 +2,13 @@ package com.hungryBear.heroes.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hungryBear.heroes.common.VO.request.SuperHeroRequest;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicated;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroNotFoundException;
 import com.hungryBear.heroes.common.persistence.entities.SuperHero;
@@ -44,11 +45,22 @@ public class SuperHeroServiceImpl implements SuperHeroService {
   }
 
   @Override
-  public SuperHero saveSuperHero(SuperHeroRequest superhero) throws SuperHeroDuplicated {
-    String name = superhero.getName();
+  public SuperHero saveSuperHero(String name) throws SuperHeroDuplicated {
     log.info("Saving a new superhero using name {}", name);
     this.checkIfHeroNameExists(name);
     return heroRepository.save(new SuperHero(name));
+  }
+
+  @Override
+  @Transactional
+  public SuperHero updateSuperHero(Long id, String newName) throws SuperHeroDuplicated, SuperHeroNotFoundException {
+    log.info("Saving an existent superhero; id: {}, name {}", id, newName);
+    this.checkIfHeroNameExists(newName);
+
+    SuperHero superHero = this.getSuperHeroById(id);
+    superHero.setName(newName);
+    heroRepository.save(superHero);
+    return superHero;
   }
 
   private void checkIfHeroNameExists(String name) throws SuperHeroDuplicated {

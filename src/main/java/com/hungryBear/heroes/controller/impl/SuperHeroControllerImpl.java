@@ -2,8 +2,6 @@ package com.hungryBear.heroes.controller.impl;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,8 +34,14 @@ public class SuperHeroControllerImpl implements SuperHeroController {
   }
 
   @Override
-  public SuperHero saveSuperHero(@Valid SuperHeroRequest superhero) throws SuperHeroDuplicated {
-    return superHeroService.saveSuperHero(superhero);
+  public SuperHero saveSuperHero(SuperHeroRequest superhero) throws SuperHeroDuplicated {
+    return superHeroService.saveSuperHero(superhero.getName());
+  }
+
+  @Override
+  public SuperHero updateHero(Long id, SuperHeroRequest superhero)
+      throws SuperHeroDuplicated, SuperHeroNotFoundException {
+    return superHeroService.updateSuperHero(id, superhero.getName());
   }
 
 }

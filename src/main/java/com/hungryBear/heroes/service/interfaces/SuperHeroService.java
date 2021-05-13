@@ -15,6 +15,8 @@ public interface SuperHeroService {
 
   public List<SuperHero> getSuperHeroByName(String name) throws SuperHeroNotFoundException;
 
-  public SuperHero saveSuperHero(SuperHeroRequest superhero) throws SuperHeroDuplicated;
+  public SuperHero saveSuperHero(String name) throws SuperHeroDuplicated;
+
+  public SuperHero updateSuperHero(Long id, String name) throws SuperHeroDuplicated, SuperHeroNotFoundException;
 
 }

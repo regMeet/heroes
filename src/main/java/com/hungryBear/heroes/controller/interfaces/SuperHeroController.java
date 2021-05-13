@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.hungryBear.heroes.common.VO.request.SuperHeroRequest;
@@ -32,5 +33,9 @@ public interface SuperHeroController {
 
   @PostMapping()
   public SuperHero saveSuperHero(@RequestBody @Valid SuperHeroRequest superhero) throws SuperHeroDuplicated;
+
+  @PutMapping("/{id}")
+  public SuperHero updateHero(@PathVariable("id") Long id, @RequestBody @Valid SuperHeroRequest request)
+      throws SuperHeroDuplicated, SuperHeroNotFoundException;
 
 }
