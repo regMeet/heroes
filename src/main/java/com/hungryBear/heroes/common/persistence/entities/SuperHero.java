@@ -2,6 +2,8 @@ package com.hungryBear.heroes.common.persistence.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "_hero")
-public class SuperHero {
+public class SuperHero implements Serializable {
+  private static final long serialVersionUID = -2798782985920607347L;
 
   @Id
   @GeneratedValue(strategy = IDENTITY)

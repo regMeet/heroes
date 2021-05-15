@@ -12,7 +12,6 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Component
 public class LoggingAspect {
-
   private final Logger log = LoggerFactory.getLogger(getClass());
 
   @Around("@annotation(com.hungryBear.heroes.utils.LogExecutionTime)")

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicatedException;
@@ -29,6 +30,7 @@ public class SuperHeroServiceImpl implements SuperHeroService {
   }
 
   @Override
+  @Cacheable(value = "getSuperHeroById", key = "#id")
   public SuperHero getSuperHeroById(Long id) throws SuperHeroNotFoundException {
     return heroRepository.findById(id).orElseThrow(() -> {
       log.info("Hero not found with id: {}. Method name: {}", id, "getSuperHeroById");

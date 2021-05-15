@@ -305,7 +305,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/heroes/2",
+					"raw": "http://localhost:8080/heroes/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -313,7 +313,7 @@
 					"port": "8080",
 					"path": [
 						"heroes",
-						"2"
+						"1"
 					]
 				}
 			},
