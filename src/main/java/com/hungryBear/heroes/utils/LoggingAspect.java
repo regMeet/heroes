@@ -29,10 +29,7 @@ public class LoggingAspect {
 
     double seconds = stopWatch.getTotalTimeSeconds();
 
-//		log.info(stopWatch.prettyPrint());
-
     log.info(String.format("'%s -> %s': running time = %.3f seconds", className, methodName, seconds));
-//    log.info("'{} -> {}': running time = {}", className, methodName, seconds);
 
     return result;
   }

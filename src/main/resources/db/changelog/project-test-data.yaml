@@ -1,25 +1,56 @@
 databaseChangeLog:
-  - changeSet:
+-  changeSet:
       context: test
       id: insert data into hero table
       author: Alan Albertengo
-      comment: "test data"
+      comment: test data
       changes:
-        - insert:
+      -  insert:
             tableName: _hero
             columns:
-              - column:
+            -  column:
                   name: name
-                  value: "Spiderman"
-        - insert:
+                  value: Spiderman
+      -  insert:
             tableName: _hero
             columns:
-              - column:
+            -  column:
                   name: name
-                  value: "Batman"
-        - insert:
+                  value: Batman
+      -  insert:
             tableName: _hero
             columns:
-              - column:
+            -  column:
                   name: name
-                  value: "Manolito"
+                  value: Manolito
+
+-  changeSet:
+      context: test
+      id: insert data into user table
+      author: Alan Albertengo
+      comment: test data
+      changes:
+      -  insert:
+            tableName: _user
+            columns:
+            -  column:
+                  name: username
+                  value: admin
+            -  column:
+                  name: password
+                  value: $2a$10$tt4gvi8NFwUcSPdYHAtuyOHbDW7NeHhDqrWoeTEPQzrDE0sWQnRpS # password
+            -  column:
+                  name: role
+                  value: ROLE_ADMIN
+      -  insert:
+            tableName: _user
+            columns:
+            -  column:
+                  name: username
+                  value: user
+            -  column:
+                  name: password
+                  value: $2a$10$tt4gvi8NFwUcSPdYHAtuyOHbDW7NeHhDqrWoeTEPQzrDE0sWQnRpS # password
+            -  column:
+                  name: role
+                  value: ROLE_USER
