@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.hungryBear.heroes.common.VO.request.SuperHeroRequest;
 import com.hungryBear.heroes.common.errors.exceptions.SuperHeroDuplicatedException;
@@ -38,7 +40,8 @@ public interface SuperHeroController {
 
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping()
-  public SuperHero saveSuperHero(@RequestBody @Valid SuperHeroRequest superhero) throws SuperHeroDuplicatedException;
+  public @ResponseStatus(HttpStatus.CREATED) SuperHero saveSuperHero(@RequestBody @Valid SuperHeroRequest superhero)
+      throws SuperHeroDuplicatedException;
 
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("/{id}")
