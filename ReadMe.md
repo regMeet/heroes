@@ -28,6 +28,9 @@ docker images
 Finally we can run our image:  
 > docker run -it -p 8080:8080 spring-boot-docker
 
+If you are using a windows machine with git bash installed you will need to prefix the commando with 'winpty' which is already installed on it:
+> winpty docker run -it -p 8080:8080 spring-boot-docker
+
 
 ## Endpoints
 There is a postman collection on the root of the project that you can import into postman, it contains some scripts to login with different role users and saves automatically the access token for the endpoints that need it.
