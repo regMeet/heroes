@@ -2,16 +2,32 @@
 
 ## Maven Commands
 Compile and tests  
-mvn clean install
+> mvn clean install
 
 To skip the tests  
-mvn clean install -DskipTests
+> mvn clean install -DskipTests
 
 To just run the tests  
-mvn test
+> mvn test
 
 To run the application  
-mvn spring-boot:run
+> mvn spring-boot:run
+
+## Docker
+Make sure you have compiled the application with the Maven command.  
+Then you will be able to create a Docker image with the following command:  
+
+> docker build -t spring-boot-docker .  
+
+Where spring-boot-docker is the name of our image. 
+ 
+
+Then you can list all the images that you have and check our image has been created correctly:
+docker images  
+
+Finally we can run our image:  
+> docker run -it -p 8080:8080 spring-boot-docker
+
 
 ## Endpoints
 There is a postman collection on the root of the project that you can import into postman, it contains some scripts to login with different role users and saves automatically the access token for the endpoints that need it.
